@@ -11,6 +11,8 @@
 #include "Instruction.h"
 using namespace std;
 
+//This is a test
+
 void readFile(string file){
     ifstream mystream;
     ofstream output;
