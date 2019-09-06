@@ -6,6 +6,8 @@
 //  Copyright © 2019 Jacob Wheeler. All rights reserved.
 //
 
+// This is a test comment
+
 #include <iostream>
 #include <fstream>
 #include "Instruction.h"
