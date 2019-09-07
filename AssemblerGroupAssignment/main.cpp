@@ -49,21 +49,20 @@ bitset<4> opcodeConversion(string s){
 }
 
 // Convert integer into 2 bit binary
-bitset<2> registerConversion(int n){
-    bitset<2> registerConversion(string s){
-        int registerNum = 0;
-        if(s == "$0"){
-            registerNum = 0;
-        }else if(s == "$1"){
-            registerNum = 1;
-        }else if(s == "$2"){
-            registerNum = 2;
-        }else if(s == "$3"){
-            registerNum = 3;
-        }
-        bitset<2> registerBin(registerNum);
-        return registerBin;
+
+bitset<2> registerConversion(string s) {
+    int registerNum = 0;
+    if(s == "$0"){
+        registerNum = 0;
+    }else if(s == "$1"){
+        registerNum = 1;
+    }else if(s == "$2"){
+        registerNum = 2;
+    }else if(s == "$3"){
+        registerNum = 3;
     }
+    bitset<2> registerBin(registerNum);
+    return registerBin;
 }
 
 // Convert integer into 8 bit Binary
