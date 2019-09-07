@@ -10,21 +10,54 @@
 
 #include <iostream>
 #include <fstream>
+#include <bitset>
 #include "Instruction.h"
 using namespace std;
 
-//This is a test
-//This is another test
+
+//void readFile(string file){
+//    ifstream mystream;
+//    ofstream output;
+//    getline()
+//
+//}
 
 
-void readFile(string file){
-    ifstream mystream;
-    ofstream output;
-    getline(
-    
+// Convert string into 4 bit binary
+bitset<4> opcodeConversion(string s){
+    int opcode = 0;
+    // If statement to check which opcode to return
+    if(s == "addi"){
+        opcode = 1;
+    }else if(s == "blt"){
+        opcode = 2;
+    }else if(s == "bne"){
+        opcode = 3;
+    }else if(s == "j"){
+        opcode = 4;
+    }else if(s == "mul"){
+        opcode = 5;
+    }else if(s == "sub"){
+        opcode = 6;
+    }else if(s == "read"){
+        opcode = 7;
+    }else if(s == "print"){
+        opcode = 8;
+    }
+    bitset<4> opcodeBin(opcode);
+    return opcodeBin;
 }
-int conversion(string str){
-    
+
+// Convert integer into 2 bit binary
+bitset<2> registerConversion(int n){
+    bitset<2> registerBin(n);
+    return registerBin;
+}
+
+// Convert integer into 8 bit Binary
+bitset<8> immediateConversion(int n){
+    bitset<8> immediateBin(n);
+    return immediateBin;
 }
 
 int main(int argc, const char * argv[]) {
