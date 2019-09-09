@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <vector>
 #include <string>
+#include <sstream>
 #include "Instruction.h"
 using namespace std;
 
@@ -27,12 +28,13 @@ bitset<8> immediateConversion(int n);
 // MAIN
 int main(int argc, const char * argv[]) {
     vector <string> inputStrings;
-   vector <string> z = readFile("gcd.s", inputStrings);
+    vector <string> z = readFile("gcd.s", inputStrings);
     for(int i = 0; i < z.size(); i++){
         string strings = z[i];
         cout << strings.size() << strings << endl;
         string opcode = strings.substr(0, 5);
         opcode.erase (remove (opcode.begin(), opcode.end(), ' '), opcode.end());
+        
         for(i = 0; i < strings.size(); i++){
             string reg = strings.find("$0");
             cout << reg << "this is reg" << endl;
@@ -59,20 +61,21 @@ int main(int argc, const char * argv[]) {
 
 
 // FUNCTION DEFINITIONS
-vector <string> readFile(string file, vector <string> v) {
+vector<string> readFile(string file, vector<string> v) {
     // Variables
     ifstream myStream(file);
     ofstream outStream("Assembler_Converted.bin");
+    stringstream sstr;
     
     // Get lines of file while not at the end of file
     while (!myStream.eof()) {
         // Create string variable and store line
-        string str;
-        getline(myStream, str);
-//        cout << str << endl;
-        v.push_back (str);
-        
+        string line;
+        getline(myStream, line);
+        sstr << line;
     }
+    
+    
     return v;
 }
 
