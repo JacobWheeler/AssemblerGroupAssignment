@@ -29,22 +29,9 @@ bitset<8> immediateConversion(int n);
 int main(int argc, const char * argv[]) {
     vector <string> inputStrings;
     vector <string> z = readFile("gcd.s", inputStrings);
+  
     for(int i = 0; i < z.size(); i++){
-        string strings = z[i];
-        cout << strings.size() << strings << endl;
-        string opcode = strings.substr(0, 5);
-        opcode.erase (remove (opcode.begin(), opcode.end(), ' '), opcode.end());
-        
-        for(i = 0; i < strings.size(); i++){
-            string reg = strings.find("$0");
-            cout << reg << "this is reg" << endl;
-            
-        }
-        
-        bitset<4> op = opcodeConversion(opcode);
-        bitset<2> re = registerConversion("$0");
-        
-        cout << "this is the binary" << op << "," << re;
+        cout << z[i];
     }
     return 0;
 }
@@ -68,11 +55,41 @@ vector<string> readFile(string file, vector<string> v) {
     stringstream sstr;
     
     // Get lines of file while not at the end of file
-    while (!myStream.eof()) {
-        // Create string variable and store line
-        string line;
-        getline(myStream, line);
-        sstr << line;
+    
+    // Create string variable and store line
+    string line;
+    while (getline(myStream, line)) {
+        stringstream splitter(line);
+        string name;
+        string arg1;
+        string arg2;
+        string arg3;
+        splitter >> name;
+        splitter >> arg1;
+        splitter >> arg2;
+        splitter >> arg3;
+//        cout << name << endl << arg1<< endl << arg2 << endl << arg3 << endl;
+        bitset<16> completeBinary;
+        bitset<16> opcode = (bitset<16>)(opcodeConversion(name).to_ulong());
+        opcode << 12;
+        cout << opcode << endl;
+        opcode | completeBinary;
+        cout << completeBinary << endl;
+        if(arg1[0] == '$'){
+            registerConversion(arg1);
+        }else{
+            immediateConversion(stoi(arg1));
+        }
+        if(arg2[0] == '$'){
+            registerConversion(arg2);
+        }else{
+            immediateConversion(stoi(arg2));
+        }
+        if(arg3[0] == '$'){
+            registerConversion(arg3);
+        }else{
+            immediateConversion(stoi(arg3));
+        }
     }
     
     
