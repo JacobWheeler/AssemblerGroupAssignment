@@ -10,12 +10,15 @@
 #include <iostream>
 #include <fstream>
 #include <bitset>
+#include <algorithm>
+#include <vector>
+#include <string>
 #include "Instruction.h"
 using namespace std;
 
 
 // FUNCTION DECLARATIONS
-void readFile(string file);
+vector <string> readFile(string file, vector <string> v);
 bitset<4> opcodeConversion(string s);
 bitset<2> registerConversion(string s);
 bitset<8> immediateConversion(int n);
@@ -23,8 +26,24 @@ bitset<8> immediateConversion(int n);
 
 // MAIN
 int main(int argc, const char * argv[]) {
-    
-    
+    vector <string> inputStrings;
+   vector <string> z = readFile("gcd.s", inputStrings);
+    for(int i = 0; i < z.size(); i++){
+        string strings = z[i];
+        cout << strings.size() << strings << endl;
+        string opcode = strings.substr(0, 5);
+        opcode.erase (remove (opcode.begin(), opcode.end(), ' '), opcode.end());
+        for(i = 0; i < strings.size(); i++){
+            string reg = strings.find("$0");
+            cout << reg << "this is reg" << endl;
+            
+        }
+        
+        bitset<4> op = opcodeConversion(opcode);
+        bitset<2> re = registerConversion("$0");
+        
+        cout << "this is the binary" << op << "," << re;
+    }
     return 0;
 }
 
@@ -40,20 +59,21 @@ int main(int argc, const char * argv[]) {
 
 
 // FUNCTION DEFINITIONS
-void readFile(string file) {
+vector <string> readFile(string file, vector <string> v) {
     // Variables
     ifstream myStream(file);
     ofstream outStream("Assembler_Converted.bin");
-    
     
     // Get lines of file while not at the end of file
     while (!myStream.eof()) {
         // Create string variable and store line
         string str;
         getline(myStream, str);
-        
+//        cout << str << endl;
+        v.push_back (str);
         
     }
+    return v;
 }
 
 
