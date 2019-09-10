@@ -71,25 +71,44 @@ vector<string> readFile(string file, vector<string> v) {
 //        cout << name << endl << arg1<< endl << arg2 << endl << arg3 << endl;
         bitset<16> completeBinary;
         bitset<16> opcode = (bitset<16>)(opcodeConversion(name).to_ulong());
-        opcode << 12;
-        cout << opcode << endl;
-        opcode | completeBinary;
-        cout << completeBinary << endl;
+        opcode <<= 12;
+        completeBinary |= opcode;
         if(arg1[0] == '$'){
-            registerConversion(arg1);
+            bitset<16> reg1 = (bitset<16>)(registerConversion(arg1).to_ulong());
+            reg1 <<= 10;
+            completeBinary |= reg1;
         }else{
-            immediateConversion(stoi(arg1));
+            int imm = stoi(arg1);
+            bitset<16> imm1 = (bitset<16>)(immediateConversion(imm).to_ulong());
+            imm1 <<= 4;
+            completeBinary |= imm1;
         }
-        if(arg2[0] == '$'){
-            registerConversion(arg2);
-        }else{
-            immediateConversion(stoi(arg2));
+        if(!(arg2.empty())){
+            if(arg2[0] == '$'){
+                bitset<16> reg2 = (bitset<16>)(registerConversion(arg2).to_ulong());
+                reg2 <<= 8;
+                completeBinary |= reg2;
+            }else{
+                int imm = stoi(arg2);
+                bitset<16> imm1 = (bitset<16>)(immediateConversion(imm).to_ulong());
+                imm1 <<= 2;
+                completeBinary |= imm1;
+            }
         }
-        if(arg3[0] == '$'){
-            registerConversion(arg3);
-        }else{
-            immediateConversion(stoi(arg3));
+        if(!(arg3.empty())){
+            if(arg3[0] == '$'){
+                bitset<16> reg3 = (bitset<16>)(registerConversion(arg3).to_ulong());
+                reg3 <<= 6;
+                completeBinary |= reg3;
+            }else{
+                int imm = stoi(arg3);
+                bitset<16> imm1 = (bitset<16>)(immediateConversion(imm).to_ulong());
+                completeBinary |= imm1;
+            }
         }
+        ofstream outStream("Assembler_Converted.bin");
+        outStream << completeBinary << endl;
+        cout << completeBinary << endl;
     }
     
     
